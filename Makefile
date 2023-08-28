@@ -6,7 +6,7 @@
 #    By: jquil <jquil@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 15:45:16 by jquil             #+#    #+#              #
-#    Updated: 2023/05/16 17:05:04 by jquil            ###   ########.fr        #
+#    Updated: 2023/08/25 19:33:22 by jquil            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,6 @@ SRCS		=	\
 		ft_printlst.c					\
 		ft_tools.c						\
 		radix.c							\
-		ft_incremente_decremente_pos.c	\
 
 OBJS		=	$(SRCS:.c=.o)
 LIBS		=	-LLibft -lft -Lprintf -lftprintf

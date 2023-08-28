@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:09:19 by jquil             #+#    #+#             */
-/*   Updated: 2023/02/14 14:51:56 by jquil            ###   ########.fr       */
+/*   Updated: 2023/08/28 14:59:16 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ t_list	*ft_init_node(int x)
 	t_list	*lst;
 
 	lst = malloc(sizeof(t_list));
-	lst -> content = x;
-	lst -> next = NULL;
+	lst->value = x;
+	lst->next = NULL;
 	return (lst);
 }
 
@@ -64,10 +64,10 @@ void	ft_free_lst(t_list *lst)
 int	main(int argc, char **argv)
 {
 	t_list	*lst_a;
-	t_list	*temp;
+	t_list	*lst_b;
 
 	lst_a = ft_setuplst(argc, argv);
-	temp = lst_a;
-	sort_lst(argc, lst_a);
+	lst_b = malloc (sizeof (t_list));
+	sort_lst(argc, lst_a, lst_b);
 	return (0);
 }

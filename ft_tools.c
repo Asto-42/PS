@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 12:26:59 by jquil             #+#    #+#             */
-/*   Updated: 2023/05/15 16:04:39 by jquil            ###   ########.fr       */
+/*   Updated: 2023/08/25 19:35:19 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	*ft_file_tab(t_list **lst, int len)
 	tmp = (*lst);
 	while (tmp)
 	{
-		tab[x] = tmp -> content;
+		tab[x] = tmp->value;
 		x++;
 		if (tmp -> next)
 			tmp = tmp -> next;

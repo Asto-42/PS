@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 17:30:30 by jquil             #+#    #+#             */
-/*   Updated: 2023/05/15 16:11:45 by jquil            ###   ########.fr       */
+/*   Updated: 2023/08/28 14:58:32 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,11 @@ int	check_sort2(t_list **lst)
 	tmp = (*lst);
 	while (tmp -> next)
 	{
-		x = tmp -> content;
-		tmp = tmp -> next;
-		y = tmp -> content;
+		x = tmp->value;
+		tmp = tmp->next;
+		y = tmp->value;
 		if (x > y)
-		{
 			return (0);
-		}
 	}
 	return (1);
 }
@@ -39,10 +37,10 @@ int	check_sort(t_list *lst)
 	t_list	*y;
 
 	x = (lst);
-	y = (lst)-> next;
+	y = (lst)->next;
 	while (lst)
 	{
-		if (y && (x -> content) > (y -> content))
+		if (y && (x->value) > (y->value))
 			return (0);
 		else
 		{
@@ -54,28 +52,64 @@ int	check_sort(t_list *lst)
 	return (1);
 }
 
-void	sort_lst(int argc, t_list *lst_a)
+static t_list	*get_next_min(t_list **stack)
 {
-	t_list	**lst_b;
+	t_list	*head;
+	t_list	*min;
+	int		has_min;
 
-	lst_b = malloc (sizeof (t_list *));
-	*lst_b = NULL;
+	min = NULL;
+	has_min = 0;
+	head = *stack;
+	if (head)
+	{
+		while (head)
+		{
+			if ((head->index == -1) && (!has_min || head->value < min->value))
+			{
+				min = head;
+				has_min = 1;
+			}
+			head = head->next;
+		}
+	}
+	return (min);
+}
+
+void	index_stack(t_list **stack)
+{
+	t_list	*head;
+	int		index;
+
+	index = 0;
+	head = get_next_min(stack);
+	while (head)
+	{
+		head->index = index++;
+		head = get_next_min(stack);
+	}
+}
+
+void	sort_lst(int argc, t_list *lst_a, t_list *lst_b)
+{
+	index_stack(&lst_a);
 	argc = argc - 1;
-	if (check_sort(lst_a) == 0 || argc)
+	if (check_sort(lst_a) == 0)
 	{
 		if (argc == 2)
 			ft_sort_two(&lst_a);
 		else if (argc == 3)
-			ft_sort_small(&lst_a, lst_b, 3);
+			ft_sort_small(&lst_a, &lst_b, 3);
 		else if (argc == 4)
-			ft_sort_small(&lst_a, lst_b, 4);
+			ft_sort_small(&lst_a, &lst_b, 4);
 		else if (argc == 5)
-			ft_sort_small(&lst_a, lst_b, 5);
+			ft_sort_small(&lst_a, &lst_b, 5);
 		else
 		{
-			ft_radix(&lst_a, lst_b, argc);
+			ft_printf("oui\n");
+			radix_sort(&lst_a, &lst_b);
 		}
 	}
-	//ft_printlst(&lst_a, "A");
+	ft_printlst(&lst_a, "A");
 	ft_free_lst(lst_a);
 }
