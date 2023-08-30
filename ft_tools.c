@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 12:26:59 by jquil             #+#    #+#             */
-/*   Updated: 2023/08/25 19:35:19 by jquil            ###   ########.fr       */
+/*   Updated: 2023/08/29 13:24:22 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	*ft_file_tab(t_list **lst, int len)
 	{
 		tab[x] = tmp->value;
 		x++;
-		if (tmp -> next)
+		if (tmp->next)
 			tmp = tmp -> next;
 		else
 			break ;
@@ -35,10 +35,8 @@ int	*ft_file_tab(t_list **lst, int len)
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	int		y;
 	t_list	*tmp;
 
-	y = 0;
 	tmp = *lst;
 	if (lst == NULL || *lst == NULL)
 		*lst = new;
@@ -59,4 +57,3 @@ t_list	*ft_lstlast(t_list *lst)
 	}
 	return (lst);
 }
-

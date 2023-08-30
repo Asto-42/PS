@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 15:28:13 by jquil             #+#    #+#             */
-/*   Updated: 2023/08/25 19:35:35 by jquil            ###   ########.fr       */
+/*   Updated: 2023/08/28 16:58:14 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,20 @@ void	ft_push(t_list **lst_a, t_list **lst_b, char c)
 void	ft_rotate(t_list **lst, char c)
 {
 	int		x;
+	int		y;
 	t_list	*tmp;
 
 	tmp = (*lst);
 	x = (*lst)->value;
+	y = (*lst)->index;
 	while ((*lst)->next)
 	{
 		(*lst)->value = (*lst)->next->value;
+		(*lst)->index = (*lst)->next->index;
 		(*lst) = (*lst)->next;
 	}
 	(*lst)->value = x;
+	(*lst)->index = y;
 	(*lst) = tmp;
 	if (c != 'c')
 		ft_printf("r%c\n", c);

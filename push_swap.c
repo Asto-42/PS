@@ -6,68 +6,108 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:09:19 by jquil             #+#    #+#             */
-/*   Updated: 2023/08/28 14:59:16 by jquil            ###   ########.fr       */
+/*   Updated: 2023/08/30 17:22:04 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
 
-t_list	*ft_init_node(int x)
+static t_list	*get_next_min(t_list **stack)
 {
-	t_list	*lst;
+	t_list	*head;
+	t_list	*min;
+	int		has_min;
 
-	lst = malloc(sizeof(t_list));
-	lst->value = x;
-	lst->next = NULL;
-	return (lst);
+	min = NULL;
+	has_min = 0;
+	head = *stack;
+	if (head)
+	{
+		while (head)
+		{
+			if ((head->index == -1) && (!has_min || head->value < min->value))
+			{
+				min = head;
+				has_min = 1;
+			}
+			head = head->next;
+		}
+	}
+	return (min);
 }
 
-t_list	*ft_setuplst(int argc, char **argv)
+void	index_stack(t_list **stack)
 {
-	t_list	*lst;
-	int		*tab;
-	t_list	*tmp;
-	int		x;
+	t_list	*head;
+	int		index;
 
-	x = 0;
-	tab = malloc ((argc - 1) * sizeof(int));
-	while (x < argc - 1)
+	index = 0;
+	head = get_next_min(stack);
+	while (head)
 	{
-		tab[x] = ft_atoi(argv[x + 1]);
-		x++;
+		head->index = index++;
+		head = get_next_min(stack);
 	}
-	x = 1;
-	lst = ft_init_node(tab[0]);
-	while (x < argc - 1)
-	{
-		tmp = ft_init_node(tab[x]);
-		ft_lstadd_back(&lst, tmp);
-		x++;
-	}
-	free(tab);
-	return (lst);
 }
 
-void	ft_free_lst(t_list *lst)
+void	ft_free(char **str)
 {
-	t_list	*temp;
+	int	i;
 
-	while (lst)
+	i = 0;
+	while (str[i])
+		i++;
+	while (i >= 0)
+		free(str[i--]);
+}
+
+static void	initstack(t_list **stack, int argc, char **argv)
+{
+	t_list	*new;
+	char	**args;
+	int		i;
+
+	i = 0;
+	if (argc == 2)
+		args = ft_split(argv[1], ' ');
+	else
 	{
-		temp = lst->next;
-		free(lst);
-		lst = temp;
+		i = 1;
+		args = argv;
 	}
+	while (args[i])
+	{
+		new = ft_lstnew(ft_atoi(args[i]));
+		ft_lstadd_back(stack, new);
+		i++;
+	}
+	index_stack(stack);
+	if (argc == 2)
+		ft_free(args);
 }
 
 int	main(int argc, char **argv)
 {
-	t_list	*lst_a;
-	t_list	*lst_b;
+	t_list	**lst_a;
+	t_list	**lst_b;
 
-	lst_a = ft_setuplst(argc, argv);
-	lst_b = malloc (sizeof (t_list));
+	if (argc == 1)
+		return (0);
+	if ((is_number(argv) == 0) || (ft_parse_arg(argv, argc) == 0))
+	{
+		ft_printf("error\n");
+		return (0);
+	}
+	if (argc == 2)
+		return (0);
+	lst_a = (t_list **)malloc (sizeof (t_list));
+	lst_b = (t_list **)malloc (sizeof (t_list));
+	*lst_a = NULL;
+	*lst_b = NULL;
+	initstack(lst_a, argc, argv);
 	sort_lst(argc, lst_a, lst_b);
+	ft_free_lst(lst_a);
+	ft_free_lst(lst_b);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 11:06:29 by jquil             #+#    #+#             */
-/*   Updated: 2023/08/28 14:51:24 by jquil            ###   ########.fr       */
+/*   Updated: 2023/08/29 11:26:48 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ static int	get_max_bits(t_list **stack)
 
 	head = *stack;
 	max = head->index;
-	ft_printf("index = %i\n", head->index);
-	ft_printf("max = %i\n", max);
 	max_bits = 0;
 	while (head)
 	{
@@ -34,7 +32,7 @@ static int	get_max_bits(t_list **stack)
 	return (max_bits);
 }
 
-void	radix_sort(t_list **stack_a, t_list **stack_b)
+void	radix_sort(t_list **lst_a, t_list **lst_b)
 {
 	t_list	*head_a;
 	int		i;
@@ -43,22 +41,22 @@ void	radix_sort(t_list **stack_a, t_list **stack_b)
 	int		max_bits;
 
 	i = 0;
-	head_a = *stack_a;
+	head_a = *lst_a;
 	size = ft_len_lst(&head_a);
-	max_bits = get_max_bits(stack_a);
+	max_bits = get_max_bits(lst_a);
 	while (i < max_bits)
 	{
 		j = 0;
 		while (j++ < size)
 		{
-			head_a = *stack_a;
+			head_a = *lst_a;
 			if (((head_a->index >> i) & 1) == 1)
-				ft_rotate(stack_a, 'a');
+				ft_rotate(lst_a, 'a');
 			else
-				ft_push(stack_a, stack_b, 'b');
+				ft_push(lst_a, lst_b, 'b');
 		}
-		while (ft_len_lst(stack_b) != 0)
-			ft_push(stack_b, stack_a, 'a');
+		while (ft_len_lst(lst_b) != 0)
+			ft_push(lst_b, lst_a, 'a');
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 #    By: jquil <jquil@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 15:45:16 by jquil             #+#    #+#              #
-#    Updated: 2023/08/25 19:33:22 by jquil            ###   ########.fr        #
+#    Updated: 2023/08/29 14:58:04 by jquil            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,10 +18,12 @@ SRCS		=	\
 		type_sort.c						\
 		operate.c						\
 		operate_double.c				\
-		ft_lst_len.c					\
 		ft_printlst.c					\
 		ft_tools.c						\
 		radix.c							\
+		ft_parse.c						\
+		ft_lst.c						\
+
 
 OBJS		=	$(SRCS:.c=.o)
 LIBS		=	-LLibft -lft -Lprintf -lftprintf

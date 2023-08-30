@@ -6,23 +6,21 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:53:33 by jquil             #+#    #+#             */
-/*   Updated: 2023/08/25 19:35:19 by jquil            ###   ########.fr       */
+/*   Updated: 2023/08/28 17:08:55 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_printlst(t_list **lst, char *c)
+void	ft_printlst(t_list **lst)
 {
-	t_list		*tmp;
+	t_list	*tmp;
 
-	if (!lst)
-		ft_printf("%s : VIDE\n", c);
-	tmp = *(lst);
-	while (tmp)
+	tmp = *lst;
+	while (tmp != NULL)
 	{
-		ft_printf("lst %s: %i\n", c, tmp->value);
-		tmp = tmp -> next;
+		ft_putnbr_fd(tmp->value, 1);
+		ft_putendl_fd("", 1);
+		tmp = tmp->next;
 	}
-	ft_printf("\n");
 }
